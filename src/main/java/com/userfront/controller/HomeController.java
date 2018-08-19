@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import com.userfront.domain.SavingsAccount;
 import com.userfront.domain.User;
 import com.userfront.domain.security.UserRole;
 import com.userfront.service.UserService;
-
+@Slf4j
 @Controller
 public class HomeController {
 	
@@ -63,7 +64,7 @@ public class HomeController {
         } else {
         	 Set<UserRole> userRoles = new HashSet<>();
              userRoles.add(new UserRole(user, roleDao.findByName("ROLE_USER")));
-
+            log.debug(roleDao.findByName("ROLE_USER").toString());
             userService.createUser(user, userRoles);
 
             return "redirect:/";
